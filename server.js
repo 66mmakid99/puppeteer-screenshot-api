@@ -1,6 +1,10 @@
 const express = require('express');
-const puppeteer = require('puppeteer');
+const puppeteer = require('puppeteer-extra');
+const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 const cors = require('cors');
+
+// Stealth 플러그인 적용 (봇 감지 우회)
+puppeteer.use(StealthPlugin());
 
 const app = express();
 app.use(cors());

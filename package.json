@@ -1,7 +1,7 @@
 {
   "name": "puppeteer-screenshot-api",
   "version": "1.0.0",
-  "description": "Screenshot API server with popup removal",
+  "description": "Screenshot API server with popup removal and bot detection bypass",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
@@ -9,6 +9,8 @@
   "dependencies": {
     "express": "^4.18.2",
     "puppeteer": "^21.6.1",
+    "puppeteer-extra": "^3.3.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2",
     "cors": "^2.8.5"
   },
   "engines": {
