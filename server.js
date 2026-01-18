@@ -22,8 +22,12 @@ async function getBrowser() {
         '--disable-accelerated-2d-canvas',
         '--disable-gpu',
         '--window-size=1920,1080',
-        '--hide-scrollbars'
-      ]
+        '--hide-scrollbars',
+        '--ignore-certificate-errors',
+        '--ignore-certificate-errors-spki-list',
+        '--disable-web-security'
+      ],
+      ignoreHTTPSErrors: true
     });
   }
   return browser;
@@ -215,6 +219,9 @@ app.get('/screenshot', async (req, res) => {
     const browserInstance = await getBrowser();
     page = await browserInstance.newPage();
     
+    // HTTPS 오류 무시
+    await page.setBypassCSP(true);
+    
     // 뷰포트 설정
     await page.setViewport({
       width: parseInt(width),
@@ -227,7 +234,7 @@ app.get('/screenshot', async (req, res) => {
       'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
     );
     
-    // 페이지 로드
+    // 페이지 로드 (HTTPS 오류 무시)
     await page.goto(url, {
       waitUntil: 'networkidle2',
       timeout: 30000
